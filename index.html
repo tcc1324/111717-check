@@ -90,14 +90,14 @@
       await fetch(GH, { mode: 'no-cors', cache: 'no-store', signal: timeout(12000) });
       return '拿到了（跨域看不到状态码，正常）';
     }),
-    run('Supabase 数据库', 'rest/v1', async function () {
-      var r = await fetch(SB + '/rest/v1/mw_events?select=id&limit=1', {
-        headers: { apikey: ANON, Authorization: 'Bearer ' + ANON },
+    run('Supabase 接口', 'auth / rest 同一入口', async function () {
+      var r = await fetch(SB + '/auth/v1/health', {
+        headers: { apikey: ANON },
         cache: 'no-store', signal: timeout(12000)
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      await r.text();
-      return 'HTTP ' + r.status;
+      var j = await r.json();
+      return 'HTTP ' + r.status + ' · ' + (j.name || 'ok') + ' ' + (j.version || '');
     }),
     run('Supabase 静态资源', 'storage', async function () {
       var r = await fetch(STORAGE, { cache: 'no-store', signal: timeout(12000) });
