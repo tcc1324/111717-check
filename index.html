@@ -140,7 +140,8 @@
         (scf.ok ? '腾讯云函数也通。' : '只有腾讯云函数不通，记一下这条。') + '</span>';
     } else if (gh.ok && !db.ok) {
       box.innerHTML = '<b>找到了：网站能开，但 Supabase 连不上。</b>这就是「页面转圈、内容不出来」的原因，和账号密码无关，是这条路被拦了。' +
-        (st.ok ? '<br><span class="meta">静态资源那条路是通的，只有数据库接口不通。</span>' : '<br><span class="meta">数据库和静态资源都不通，整条 Supabase 被挡。</span>');
+        (st.ok ? '<br><span class="meta">静态资源那条路是通的，只有数据库接口不通。</span>' : '<br><span class="meta">数据库和静态资源都不通，整条 Supabase 被挡。</span>') +
+        '<br><span class="meta">先试一件事：换一个浏览器（比如 Chrome / Firefox）再打开本页。换浏览器就正常的话，是这个浏览器的「安全 DNS / 省流加速 / 广告拦截」在掐请求，不是网站的问题。</span>';
     } else if (!gh.ok) {
       box.innerHTML = '<b>连网站首页都打不开。</b>这不是数据库的问题，是 GitHub Pages 那条路不通。<br><span class="meta">先确认这条 WiFi 能不能打开别的网站；如果别的都好，那就是 github.io 被挡。</span>';
     } else {
